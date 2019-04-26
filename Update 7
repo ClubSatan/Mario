@@ -1,0 +1,55 @@
+---------------------------
+Soundmanager Class
+---------------------------
+
+public class SoundManager : MonoBehaviour {
+
+    static SoundManager _instance = null;
+
+    public AudioSource sfxSource;
+    public AudioSource musicSource;
+    public AudioSource[] aSources;
+
+	// Use this for initialization
+	void Start ()
+    {
+        if (instance)
+            Destroy(gameObject);
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(this);
+        }
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+    public void playSingleSound (AudioClip clip, float volume = 1.0f)
+    {
+        if(sfxSource)
+        {
+            sfxSource.clip = clip;
+            sfxSource.volume = volume;
+            sfxSource.Play();
+            Debug.Log("played");
+        }       
+    }
+
+    public static SoundManager instance
+    {
+        get { return _instance; }
+        set { _instance = value; }
+    }
+    
+    -----------------------------
+    Collectibles Class
+    -----------------------------
+    
+     void OnDestroy() // play sound when picked up
+    {
+        if (clip && SoundManager.instance)
+           SoundManager.instance.playSingleSound(clip);
+    }
