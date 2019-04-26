@@ -1,0 +1,14 @@
+anim.SetBool("IsJumping", false);
+if (isGrounded)
+                anim.SetBool("IsJumping", false);
+            else
+                anim.SetBool("IsJumping", true);
+                
+ void Flip() // helps flip the character depending in what direction your moving (animation is set to if you were moving in one direction) 
+    {
+        lookingR = !lookingR;
+        Vector3 cScale = transform.localScale;
+        cScale.x *= -1;
+        transform.localScale = cScale;
+    }
+    
