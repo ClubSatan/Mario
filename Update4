@@ -1,0 +1,36 @@
+if (collision.gameObject.tag == "Death") // player
+        {
+            isAlive = false;
+            anim.SetTrigger("Dead");
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        }
+
+        if (collision.gameObject.tag == "EnemyKillzone") //enemy head
+        {
+            rb.AddForce(Vector2.up * 2, ForceMode2D.Impulse);
+            Enemy e = collision.GetComponentInParent<Enemy>();
+            if (e)
+            {
+                e.EnemyDead(); // calls function in enemy class
+            }
+            rb.AddForce(Vector2.up,ForceMode2D.Impulse);            
+        }
+        
+        
+        ------------------------------------------------------------
+        Enemy Class
+        ------------------------------------------------------------
+        
+        public void EnemyDead()
+    {
+        isAlive = false;
+        PlayerKillzone.enabled = false;
+        anim2.SetTrigger("EnemyDead");        
+        StartCoroutine(KillEnemy()); // removes corpse after death        
+    }
+    
+    IEnumerator KillEnemy()
+    {       
+        yield return new WaitForSeconds(.3f);
+        Destroy(this.gameObject);
+    }
