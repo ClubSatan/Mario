@@ -1,0 +1,42 @@
+public class Collectibles : MonoBehaviour {
+
+    int _points;
+    public AudioClip clip;
+
+    // Use this for initialization
+    void Start() {
+
+        points = 10;
+    }
+
+    public int points
+    {
+        get
+        {
+            Debug.Log("Returning points");
+            return _points;
+        }
+        set
+        {
+            _points = value;
+        }
+    }
+    
+    -------------------------------
+    Player Class
+    -------------------------------
+    
+    public int points // grabs value set in collectibles and adds to your score when picked up
+    {
+        get
+        {
+            return _points;
+        }
+        set
+        {
+            _points = value;
+
+            if (scoreText)
+                scoreText.text = "Score: " + points;
+        }
+    }
