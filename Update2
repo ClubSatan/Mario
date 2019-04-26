@@ -1,0 +1,23 @@
+public void Update ()
+    {
+        if(isAlive == true)
+        {
+            transform.Translate(Vector2.right * speed/4 * Time.deltaTime);
+        }
+           
+        RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, distanceY);
+        //RaycastHit2D wallInfo = Physics2D.Raycast(groundDetection.position, Vector2.right, distanceX);     
+        if (groundInfo.collider == false)
+        {
+            if(movingR == true)
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+                movingR = false;
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                movingR = true;
+            }
+        }               
+	}
