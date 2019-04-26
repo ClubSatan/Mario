@@ -1,0 +1,8 @@
+public class GameManager : MonoBehaviour {
+
+	// Use this for initialization
+	public void StartGame ()
+    {
+        SceneManager.LoadScene("Level_1");
+	}
+}
