@@ -53,3 +53,65 @@ public class SoundManager : MonoBehaviour {
         if (clip && SoundManager.instance)
            SoundManager.instance.playSingleSound(clip);
     }
+
+---------------------
+Turret Class
+--------------------
+
+public class Turret : MonoBehaviour
+{
+
+    SpriteRenderer render;
+    public Rigidbody2D iceShot;
+    public Transform iceShotSP;
+    public float timer = 0.0f;
+
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        timer += Time.deltaTime;
+        if (timer >= 3.0)
+        {
+            Shoot();
+        }
+    }
+
+    void Shoot()
+    {       
+        Rigidbody2D bullet = Instantiate(iceShot, iceShotSP.position, iceShotSP.rotation);
+        bullet.velocity = new Vector2(-2, 0);
+        timer = 0.0f;
+    }
+}
+
+------------------
+Projectile Class
+------------------
+
+public class Projectile : MonoBehaviour { // how long the freeze shot can travel
+
+    public float lifetime; 
+
+	// Use this for initialization
+	void Start ()
+    {
+        lifetime = 0.0f;
+        if(lifetime == 0)
+        {
+            lifetime = 1.0f;
+        }
+        Destroy(gameObject, lifetime);
+	}
+	
+	// Update is called once per frame
+	void Update ()
+    {
+		
+	}
+}
