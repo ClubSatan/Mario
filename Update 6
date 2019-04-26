@@ -1,0 +1,44 @@
+ if (Input.GetKeyDown(KeyCode.Q) && isAlive)
+        {
+            fire();
+            anim.SetTrigger("Attack");  // play attack animation
+        }
+        
+        void fire()
+    {
+        if(projectile && projectileSP)
+        {
+            Rigidbody2D temp = Instantiate(projectile, projectileSP.position, projectileSP.rotation);
+
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), temp.GetComponent<Collider2D>(), true); // fireball ignores player
+            
+            if(lookingR)
+                temp.AddForce(projectileSP.right * projectileForce, ForceMode2D.Impulse);
+            else // add force to the shot
+                temp.AddForce(-projectileSP.right * projectileForce, ForceMode2D.Impulse);
+        }
+    }
+    
+    if (collision.gameObject.tag == "SpeedBoost") // if touch power-up...
+        {
+            speed += speedBoost; // ... then go fast
+            StartCoroutine(StopSpeedBoost());
+            Destroy(collision.gameObject);
+        }
+        
+         IEnumerator StopSpeedBoost()
+    {
+        yield return new WaitForSeconds(powerUpTime); // powerUpTime = 5.0f; power-up lasts 5s 
+        speed -= speedBoost;
+    }
+    
+    ----------------------------
+    Enemy Class
+    ----------------------------
+    
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Fireball") // if fireball hit enemy...
+        {
+            Destroy(this.gameObject); // ..then die
+        }        
